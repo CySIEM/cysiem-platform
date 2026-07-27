@@ -1,0 +1,3 @@
+Name: Dhruvil Prajapati
+Team: Team 6
+Git setup completed successfully.
