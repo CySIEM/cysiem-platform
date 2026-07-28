@@ -1,3 +1,0 @@
-Name: Hemant Singh
-Team: Team 4
-Git setup completed successfully.
