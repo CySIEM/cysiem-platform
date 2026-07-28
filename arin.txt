@@ -1,0 +1,3 @@
+Name: Arin Vashisth
+Team: Team 5
+Git setup completed successfully.
