@@ -1,0 +1,72 @@
+.activity-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.activity-header {
+  margin-bottom: 20px;
+}
+
+.activity-header h3 {
+  color: #1f2937;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+}
+
+.activity-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-right: 15px;
+}
+
+.activity-icon.critical {
+  background: #dc2626;
+}
+
+.activity-icon.warning {
+  background: #f59e0b;
+}
+
+.activity-icon.info {
+  background: #2563eb;
+}
+
+.activity-icon.success {
+  background: #16a34a;
+}
+
+.activity-content h4 {
+  font-size: 15px;
+  color: #111827;
+  margin-bottom: 3px;
+}
+
+.activity-content span {
+  color: #6b7280;
+  font-size: 13px;
+}
+@media(max-width:768px){
+
+.activity-card{
+
+    padding:18px;
+
+}
+
+}

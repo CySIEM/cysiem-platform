@@ -1,0 +1,28 @@
+.mitre-card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-top:30px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.technique{
+    display:flex;
+    gap:15px;
+    margin:15px 0;
+    align-items:center;
+}
+
+.technique span{
+    background:#2563EB;
+    color:white;
+    padding:6px 10px;
+    border-radius:6px;
+    font-weight:bold;
+    min-width:70px;
+    text-align:center;
+}
+
+.technique p{
+    color:#374151;
+}

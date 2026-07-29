@@ -1,0 +1,50 @@
+.quick-actions-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.quick-actions-card h3 {
+  margin-bottom: 20px;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.action-btn {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  transition: 0.25s;
+}
+
+.action-btn:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.action-btn span {
+  font-weight: 600;
+}
+@media(max-width:768px){
+
+.quick-actions-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}

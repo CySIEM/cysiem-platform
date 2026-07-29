@@ -1,0 +1,89 @@
+.settings-page {
+  padding: 30px;
+  max-width: 900px;
+}
+
+.settings-header {
+  margin-bottom: 30px;
+}
+
+.settings-header h2 {
+  color: #1f2937;
+}
+
+.settings-header p {
+  color: #6b7280;
+}
+
+.settings-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.settings-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.settings-card label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.settings-card input[type="text"],
+.settings-card input[type="email"],
+.settings-card select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.settings-card input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.settings-card input[type="range"] {
+  width: 100%;
+}
+
+.status {
+  margin-top: 15px;
+}
+
+.online {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+}
+@media(max-width:768px){
+
+.settings-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}

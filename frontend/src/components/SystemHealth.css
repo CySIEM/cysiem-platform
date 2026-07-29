@@ -1,0 +1,51 @@
+.system-health-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.system-health-card h3 {
+  margin-bottom: 20px;
+}
+
+.services,
+.resources {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.service-item,
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-left,
+.resource-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status.online {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+@media(max-width:768px){
+
+.system-health-card{
+
+    padding:18px;
+
+}
+
+}

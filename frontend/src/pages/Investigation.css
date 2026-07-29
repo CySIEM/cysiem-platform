@@ -1,0 +1,58 @@
+.investigation-page {
+  padding: 30px;
+}
+
+.page-header {
+  margin-bottom: 25px;
+}
+
+.page-header h2 {
+  color: #1f2937;
+  margin-bottom: 5px;
+}
+
+.page-header p {
+  color: #6b7280;
+}
+
+.investigation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+
+.card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.details p {
+  margin: 10px 0;
+}
+
+.timeline li,
+.card ul li {
+  margin: 10px 0;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+@media(max-width:768px){
+
+.investigation-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
