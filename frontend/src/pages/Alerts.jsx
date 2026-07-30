@@ -34,13 +34,27 @@ const Alerts = () => {
     if (search !== "") {
       result = result.filter(
         (a) =>
-          a.threat.toLowerCase().includes(search.toLowerCase()) ||
-          a.time.toLowerCase().includes(search.toLowerCase())
+          a.title.toLowerCase().includes(search.toLowerCase()) ||
+          a.source.toLowerCase().includes(search.toLowerCase())
       );
     }
 
     setFilteredAlerts(result);
   }, [search, severity, status, alerts]);
+
+  const handleView = (selectedAlert) => {
+    window.alert(
+      `Alert Details
+
+Title: ${selectedAlert.title}
+
+Source: ${selectedAlert.source}
+
+Severity: ${selectedAlert.severity}
+
+Status: ${selectedAlert.status}`
+    );
+  };
 
   return (
     <div className="alerts-page">
@@ -54,12 +68,14 @@ const Alerts = () => {
 
         <div className="search-box">
           <Search size={18} />
+
           <input
             type="text"
             placeholder="Search alerts..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+
         </div>
 
         <select
@@ -78,23 +94,28 @@ const Alerts = () => {
           onChange={(e) => setStatus(e.target.value)}
         >
           <option>All</option>
-          <option>Active</option>
+          <option>Open</option>
+          <option>Investigating</option>
+          <option>Closed</option>
           <option>Resolved</option>
         </select>
 
       </div>
 
       <div className="table-card">
+
         <table>
 
           <thead>
+
             <tr>
-              <th>Time</th>
+              <th>Source</th>
               <th>Threat</th>
               <th>Severity</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
+
           </thead>
 
           <tbody>
@@ -104,10 +125,12 @@ const Alerts = () => {
                 <td colSpan="5">No alerts found.</td>
               </tr>
             ) : (
-              filteredAlerts.map((alert, index) => (
-                <tr key={index}>
-                  <td>{alert.time}</td>
-                  <td>{alert.threat}</td>
+              filteredAlerts.map((alert) => (
+                <tr key={alert.id}>
+
+                  <td>{alert.source}</td>
+
+                  <td>{alert.title}</td>
 
                   <td>
                     <span className={`severity ${alert.severity.toLowerCase()}`}>
@@ -118,8 +141,14 @@ const Alerts = () => {
                   <td>{alert.status}</td>
 
                   <td>
-                    <button className="view-btn">View</button>
+                    <button
+                      className="view-btn"
+                      onClick={() => handleView(alert)}
+                    >
+                      View
+                    </button>
                   </td>
+
                 </tr>
               ))
             )}
@@ -127,6 +156,7 @@ const Alerts = () => {
           </tbody>
 
         </table>
+
       </div>
 
     </div>

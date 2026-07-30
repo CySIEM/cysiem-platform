@@ -1,112 +1,189 @@
-.navbar{
-    height:70px;
-    background:#0f172a;
-    color:white;
-    width: 100%;
+/* ===========================
+   Navbar
+=========================== */
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    padding:0 30px;
+  height: 70px;
+  width: 100%;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.2);
+  background: #0f172a;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 30px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+
+  z-index: 1000;
 }
 
-.navbar-left h2{
-    font-size:24px;
-    color:#38bdf8;
+/* ===========================
+   Left
+=========================== */
+
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 
-.navbar-right{
-    display:flex;
-    align-items:center;
-    gap:20px;
+.navbar-left h2 {
+  font-size: 24px;
+  color: #38bdf8;
 }
 
-.search-bar{
-    width:260px;
-    padding:10px;
+/* ===========================
+   Right
+=========================== */
 
-    border:none;
-    border-radius:8px;
-
-    outline:none;
-
-    font-size:15px;
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.notification-btn{
-    background:none;
-    border:none;
-
-    font-size:22px;
-
-    cursor:pointer;
-
-    color:white;
+.search-bar {
+  width: 260px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
 }
 
-.profile{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
+/* ===========================
+   Notification
+=========================== */
 
-.profile img{
-    width:40px;
-    height:40px;
-
-    border-radius:50%;
-}
-
-.profile span{
-    font-weight:600;
-}
-
-@media (max-width:768px){
-
-.navbar{
-
-    padding:15px;
-
-}
-
-.navbar h2{
-
-    font-size:20px;
-
-}
-
-.profile{
-
-    gap:10px;
-
-}
-
-}
-/* Hide menu button on desktop */
-.menu-btn {
-  display: none;
-  background: transparent;
+.notification-btn {
+  background: none;
   border: none;
   color: white;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===========================
+   Profile
+=========================== */
+
+.profile {
+  position: relative;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profile span {
+  color: white;
+  font-weight: 600;
+}
+
+.profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* ===========================
+   Dropdown
+=========================== */
+
+.profile-dropdown {
+  position: absolute;
+  top: 58px;
+  right: 0;
+
+  width: 200px;
+
+  background: white;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,.2);
+
+  z-index: 9999;
+}
+
+.profile-dropdown button {
+  width: 100%;
+
+  background: white;
+  border: none;
+
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+  transition: .3s;
+}
+
+.profile-dropdown button:hover {
+  background: #eff6ff;
+}
+
+/* ===========================
+   Mobile Menu Button
+=========================== */
+
+.menu-btn {
+  display: none;
+
+  background: transparent;
+  border: none;
+
+  color: white;
+
+  cursor: pointer;
+
   margin-right: 15px;
 }
 
-/* Mobile */
+/* ===========================
+   Responsive
+=========================== */
+
 @media (max-width: 992px) {
 
-  .menu-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .navbar {
+    padding: 0 15px;
   }
 
   .navbar-left {
     display: flex;
     align-items: center;
+  }
+
+  .navbar-left h2 {
+    font-size: 20px;
+  }
+
+  .menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .search-bar {
@@ -116,4 +193,10 @@
   .profile span {
     display: none;
   }
+
+  .profile-dropdown {
+    width: 180px;
+    right: -10px;
+  }
+
 }

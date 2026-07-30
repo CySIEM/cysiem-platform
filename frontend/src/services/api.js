@@ -50,7 +50,7 @@ export const getDashboardStats = async () => {
 };
 
 // ===============================
-// Recent Alerts
+// Alerts
 // ===============================
 
 export const getAlerts = async () => {
@@ -59,6 +59,20 @@ export const getAlerts = async () => {
     return response.data;
   } catch (error) {
     console.error("Alerts API Error:", error);
+    return [];
+  }
+};
+
+// ===============================
+// Assets
+// ===============================
+
+export const getAssets = async () => {
+  try {
+    const response = await api.get("/assets");
+    return response.data;
+  } catch (error) {
+    console.error("Assets API Error:", error);
     return [];
   }
 };
@@ -78,7 +92,7 @@ export const getThreatActivity = async () => {
 };
 
 // ===============================
-// AI Recommendations
+// Recommendations
 // ===============================
 
 export const getRecommendations = async () => {
@@ -101,6 +115,20 @@ export const getReports = async () => {
     return response.data;
   } catch (error) {
     console.error("Reports API Error:", error);
+    return [];
+  }
+};
+
+// ===============================
+// Investigation
+// ===============================
+
+export const getInvestigations = async () => {
+  try {
+    const response = await api.get("/investigation");
+    return response.data;
+  } catch (error) {
+    console.error("Investigation API Error:", error);
     return [];
   }
 };

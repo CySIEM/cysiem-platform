@@ -1,13 +1,33 @@
+/* ==========================
+   Sidebar
+========================== */
+
 .sidebar {
+    position: fixed;
+
+    top: 70px;              /* Navbar height */
+    left: 0;
+
     width: 240px;
     min-width: 240px;
+
     height: calc(100vh - 70px);
+
     background: #111827;
     color: white;
+
     padding: 20px 0;
+
     box-shadow: 2px 0 8px rgba(0,0,0,.3);
+
     overflow-y: auto;
+
+    z-index: 999;
 }
+
+/* ==========================
+   Sidebar Title
+========================== */
 
 .sidebar-title {
     color: #9CA3AF;
@@ -16,6 +36,10 @@
     font-size: 14px;
     letter-spacing: 1px;
 }
+
+/* ==========================
+   Navigation
+========================== */
 
 .sidebar ul {
     list-style: none;
@@ -28,16 +52,23 @@
     padding: 0;
 }
 
-/* Navigation Link */
 .nav-link {
     display: flex;
     align-items: center;
     gap: 15px;
+
     width: 100%;
+
     padding: 16px 25px;
+
     color: white;
     text-decoration: none;
+
     transition: 0.3s;
+}
+
+.nav-link svg {
+    flex-shrink: 0;
 }
 
 .nav-link:hover {
@@ -51,29 +82,33 @@
     border-left: 5px solid #38BDF8;
 }
 
-.nav-link svg {
-    flex-shrink: 0;
-}
+/* ==========================
+   Desktop
+========================== */
 
-/* Overlay (Hidden on Desktop) */
 .sidebar-overlay {
     display: none;
 }
 
 /* ==========================
-   MOBILE RESPONSIVE
+   Tablet / Mobile
 ========================== */
 
 @media (max-width: 992px) {
 
     .sidebar {
-        position: fixed;
-        top: 0;
+
+        top: 70px;
+
         left: -260px;
+
         width: 250px;
-        height: 100vh;
+
+        height: calc(100vh - 70px);
+
+        transition: left .3s ease;
+
         z-index: 1100;
-        transition: left 0.3s ease;
     }
 
     .sidebar.active {
@@ -82,9 +117,17 @@
 
     .sidebar-overlay {
         display: block;
+
         position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.45);
+
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background: rgba(0,0,0,.45);
+
         z-index: 1099;
     }
+
 }

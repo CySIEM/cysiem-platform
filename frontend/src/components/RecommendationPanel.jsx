@@ -32,8 +32,14 @@ const RecommendationPanel = () => {
         <p>No recommendations available.</p>
       ) : (
         <ul>
-          {recommendations.map((item, index) => (
-            <li key={index}>✔ {item}</li>
+          {recommendations.map((item) => (
+            <li key={item.id}>
+              <strong>{item.priority}</strong>
+              <br />
+              <span>{item.title}</span>
+              <br />
+              <small>{item.description}</small>
+            </li>
           ))}
         </ul>
       )}

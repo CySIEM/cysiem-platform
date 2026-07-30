@@ -63,6 +63,11 @@
   font-weight: bold;
 }
 
+.offline {
+  color: #dc2626;
+  font-weight: bold;
+}
+
 .save-btn {
   display: flex;
   align-items: center;
@@ -73,17 +78,60 @@
   padding: 12px 22px;
   border-radius: 8px;
   cursor: pointer;
+  transition: .3s;
 }
 
 .save-btn:hover {
   background: #1d4ed8;
 }
-@media(max-width:768px){
 
-.settings-grid{
+@media (max-width:768px){
 
-grid-template-columns:1fr;
+  .settings-grid{
+    grid-template-columns:1fr;
+  }
 
 }
 
+/* ===========================
+   DARK MODE
+=========================== */
+
+body.dark-mode {
+  background: #111827;
+  color: #f3f4f6;
+}
+
+body.dark-mode .settings-page {
+  background: #111827;
+}
+
+body.dark-mode .settings-header h2,
+body.dark-mode .settings-header p {
+  color: white;
+}
+
+body.dark-mode .settings-card {
+  background: #1f2937;
+  color: white;
+}
+
+body.dark-mode .settings-card h3,
+body.dark-mode .settings-card label {
+  color: white;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+  background: #374151;
+  color: white;
+  border: 1px solid #4b5563;
+}
+
+body.dark-mode .save-btn {
+  background: #3b82f6;
+}
+
+body.dark-mode .save-btn:hover {
+  background: #2563eb;
 }

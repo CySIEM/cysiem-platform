@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   User,
   Bell,
@@ -7,10 +7,11 @@ import {
   Server,
   Save,
 } from "lucide-react";
+import axios from "axios";
 import "./Settings.css";
 
 const Settings = () => {
-  const [settings, setSettings] = useState({
+  const defaultSettings = {
     name: "SOC Analyst",
     email: "analyst@cysiem.com",
     apiUrl: "http://127.0.0.1:8000",
@@ -20,7 +21,36 @@ const Settings = () => {
     darkMode: false,
     aiModel: "Llama 3.2",
     temperature: 0.7,
-  });
+  };
+
+  const [settings, setSettings] = useState(defaultSettings);
+
+  const [connectionStatus, setConnectionStatus] = useState("Checking...");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("cysiem-settings");
+
+    if (saved) {
+      setSettings(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", settings.darkMode);
+  }, [settings.darkMode]);
+
+  useEffect(() => {
+    checkBackend();
+  }, [settings.apiUrl]);
+
+  const checkBackend = async () => {
+    try {
+      await axios.get(`${settings.apiUrl}/health`);
+      setConnectionStatus("Online");
+    } catch {
+      setConnectionStatus("Offline");
+    }
+  };
 
   const handleChange = (field, value) => {
     setSettings((prev) => ({
@@ -29,86 +59,138 @@ const Settings = () => {
     }));
   };
 
+  const handleSave = () => {
+    localStorage.setItem(
+      "cysiem-settings",
+      JSON.stringify(settings)
+    );
+
+    alert("Settings saved successfully.");
+  };
+
   return (
     <div className="settings-page">
+
       <div className="settings-header">
         <h2>Settings</h2>
         <p>Manage your CySIEM preferences and system configuration.</p>
       </div>
 
       {/* Profile */}
+
       <div className="settings-card">
-        <h3><User size={20} /> Profile</h3>
+
+        <h3>
+          <User size={20} /> Profile
+        </h3>
 
         <label>Name</label>
+
         <input
           type="text"
           value={settings.name}
-          onChange={(e) => handleChange("name", e.target.value)}
+          onChange={(e) =>
+            handleChange("name", e.target.value)
+          }
         />
 
         <label>Email</label>
+
         <input
           type="email"
           value={settings.email}
-          onChange={(e) => handleChange("email", e.target.value)}
+          onChange={(e) =>
+            handleChange("email", e.target.value)
+          }
         />
+
       </div>
 
       {/* Notifications */}
+
       <div className="settings-card">
-        <h3><Bell size={20} /> Notifications</h3>
+
+        <h3>
+          <Bell size={20} /> Notifications
+        </h3>
 
         <label>
+
           <input
             type="checkbox"
             checked={settings.emailAlerts}
             onChange={(e) =>
-              handleChange("emailAlerts", e.target.checked)
+              handleChange(
+                "emailAlerts",
+                e.target.checked
+              )
             }
           />
+
           Email Alerts
+
         </label>
 
         <label>
+
           <input
             type="checkbox"
             checked={settings.desktopAlerts}
             onChange={(e) =>
-              handleChange("desktopAlerts", e.target.checked)
+              handleChange(
+                "desktopAlerts",
+                e.target.checked
+              )
             }
           />
+
           Desktop Notifications
+
         </label>
 
         <label>
+
           <input
             type="checkbox"
             checked={settings.criticalOnly}
             onChange={(e) =>
-              handleChange("criticalOnly", e.target.checked)
+              handleChange(
+                "criticalOnly",
+                e.target.checked
+              )
             }
           />
+
           Critical Alerts Only
+
         </label>
+
       </div>
 
       {/* AI */}
+
       <div className="settings-card">
-        <h3><Bot size={20} /> AI Configuration</h3>
+
+        <h3>
+          <Bot size={20} /> AI Configuration
+        </h3>
 
         <label>AI Model</label>
 
         <select
           value={settings.aiModel}
-          onChange={(e) => handleChange("aiModel", e.target.value)}
+          onChange={(e) =>
+            handleChange("aiModel", e.target.value)
+          }
         >
           <option>Llama 3.2</option>
           <option>Gemma 2</option>
           <option>Mistral</option>
         </select>
 
-        <label>Temperature</label>
+        <label>
+          Temperature ({settings.temperature})
+        </label>
 
         <input
           type="range"
@@ -117,30 +199,49 @@ const Settings = () => {
           step="0.1"
           value={settings.temperature}
           onChange={(e) =>
-            handleChange("temperature", e.target.value)
+            handleChange(
+              "temperature",
+              Number(e.target.value)
+            )
           }
         />
+
       </div>
 
       {/* Appearance */}
+
       <div className="settings-card">
-        <h3><Palette size={20} /> Appearance</h3>
+
+        <h3>
+          <Palette size={20} /> Appearance
+        </h3>
 
         <label>
+
           <input
             type="checkbox"
             checked={settings.darkMode}
             onChange={(e) =>
-              handleChange("darkMode", e.target.checked)
+              handleChange(
+                "darkMode",
+                e.target.checked
+              )
             }
           />
+
           Enable Dark Mode
+
         </label>
+
       </div>
 
       {/* Backend */}
+
       <div className="settings-card">
-        <h3><Server size={20} /> Backend</h3>
+
+        <h3>
+          <Server size={20} /> Backend
+        </h3>
 
         <label>API URL</label>
 
@@ -153,15 +254,32 @@ const Settings = () => {
         />
 
         <p className="status">
-          Connection Status:
-          <span className="online"> Online</span>
+
+          Connection Status :
+
+          <span
+            className={
+              connectionStatus === "Online"
+                ? "online"
+                : "offline"
+            }
+          >
+            {" "}
+            {connectionStatus}
+          </span>
+
         </p>
+
       </div>
 
-      <button className="save-btn">
+      <button
+        className="save-btn"
+        onClick={handleSave}
+      >
         <Save size={18} />
         Save Settings
       </button>
+
     </div>
   );
 };
