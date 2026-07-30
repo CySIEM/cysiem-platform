@@ -665,15 +665,15 @@ export default function App() {
                           </div>
                           <p className="text-sm text-slate-600 mb-10 flex-1 relative z-10 leading-relaxed">{pb.desc}</p>
                           <motion.button 
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                            whileHover={userProfile?.role === 'admin' ? { scale: 1.02 } : {}}
+                            whileTap={userProfile?.role === 'admin' ? { scale: 0.98 } : {}}
                             onClick={() => executePlaybook(pb.id)}
-                            disabled={playbookLoading[pb.id]}
-                            className={`w-full py-4 rounded-xl font-bold text-xs tracking-widest transition-all relative z-10 shadow-lg flex items-center justify-center gap-2 ${playbookLoading[pb.id] ? 'bg-slate-100 text-slate-400 border border-slate-200' : 'bg-slate-900 text-white hover:bg-indigo-600 hover:shadow-indigo-500/25'}`}
+                            disabled={playbookLoading[pb.id] || userProfile?.role !== 'admin'}
+                            className={`w-full py-4 rounded-xl font-bold text-xs tracking-widest transition-all relative z-10 shadow-lg flex items-center justify-center gap-2 ${playbookLoading[pb.id] ? 'bg-slate-100 text-slate-400 border border-slate-200' : (userProfile?.role !== 'admin' ? 'bg-slate-200 text-slate-400 cursor-not-allowed border border-slate-200' : 'bg-slate-900 text-white hover:bg-indigo-600 hover:shadow-indigo-500/25')}`}
                           >
                             {playbookLoading[pb.id] ? (
                                <><div className="w-4 h-4 border-2 border-slate-400/30 border-t-slate-400 rounded-full animate-spin"></div> EXECUTING...</>
-                            ) : 'EXECUTE PLAYBOOK'}
+                            ) : (userProfile?.role !== 'admin' ? <><Lock size={14} /> ADMIN ONLY</> : 'EXECUTE PLAYBOOK')}
                           </motion.button>
                         </motion.div>
                       ))}
