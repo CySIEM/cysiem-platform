@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 
-class UserCreate(BaseModel):
+class UserBase(BaseModel):
     username: str
+
+class UserCreate(UserBase):
     password: str
 
-class UserResponse(BaseModel):
+class UserResponse(UserBase):
     id: int
-    username: str
     role: str
     class Config:
         from_attributes = True
