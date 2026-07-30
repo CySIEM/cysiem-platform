@@ -31,8 +31,11 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
     
+    user_count = db.query(models.User).count()
+    assigned_role = "admin" if user_count == 0 else "analyst"
+    
     hashed_pwd = auth.get_password_hash(user.password)
-    new_user = models.User(username=user.username, hashed_password=hashed_pwd, role="SOC Analyst")
+    new_user = models.User(username=user.username, hashed_password=hashed_pwd, role=assigned_role)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
