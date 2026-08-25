@@ -1,0 +1,12 @@
+title: Firewall Block Spike From Single Host
+id: kksiem-rule-002
+severity: medium
+description: >
+  Fires when a single host is the source of 10+ blocked connections within
+  the polling window - consistent with port scanning or automated probing
+  crossing an OPT segment boundary. Matches normalized.action=conn_block,
+  populated by the pfSense filterlog parser.
+detection:
+  field_matches:
+    normalized.action: conn_block
+  min_count: 10

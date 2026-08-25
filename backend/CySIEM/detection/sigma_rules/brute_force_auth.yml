@@ -1,0 +1,12 @@
+title: Repeated Authentication Failures (Brute Force)
+id: kksiem-rule-001
+severity: high
+description: >
+  Fires when a single host produces 5+ failed logon events within the
+  polling window. Matches normalized.action=logon_failed, which the
+  normalizer's parsers (pfSense, Windows eventlog 4625, auditd, syslog
+  sshd) all populate consistently regardless of source OS.
+detection:
+  field_matches:
+    normalized.action: logon_failed
+  min_count: 5
