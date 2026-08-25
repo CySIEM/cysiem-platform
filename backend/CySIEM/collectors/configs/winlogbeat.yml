@@ -1,0 +1,79 @@
+# Winlogbeat config: deploy to Windows Server / Windows 10 / Windows 11.
+# Each host must set its own `fields.host` and `fields.ip` below before install -
+# this is what stamps source identity onto every event, per host.
+# Replace <THIS_HOST_NAME> and <THIS_HOST_IP> per machine, e.g.
+#   WIN-SRV01 / 192.168.30.10   (OPT2, source_type: windows_server)
+#   WIN10-01  / 192.168.20.11   (OPT1, source_type: windows_client)
+#   WIN11-01  / 192.168.20.12   (OPT1, source_type: windows_client)
+#
+# IMPORTANT: the output JSON keys must exactly match kksiem.schemas.
+# canonical.RawMessage's fields (host, ip, segment, source_type, log_type,
+# collector, raw) - the normalizer does RawMessage(**parsed), a direct
+# kwarg unpack. Any mismatch fails Pydantic validation and routes to DLQ.
+#
+# kksiem.normalizer.parsers.parse_windows_eventlog expects `raw` to be a
+# JSON STRING containing the full original event (event.code,
+# winlog.event_data.TargetUserName, etc) - NOT the plain `message` text.
+# Winlogbeat's native fields (event, winlog, message) live at the TOP
+# LEVEL of the document, not nested under one key, so a simple rename
+# would only capture the human-readable message and silently lose
+# event.code/winlog.event_data - which is exactly what the parser needs
+# to classify logon success/failure, process creation, etc. The script
+# processor below serializes the ENTIRE original event to a JSON string
+# and writes it to `raw` before our custom `fields:` block below adds the
+# identity fields (host/ip/segment/etc) alongside it.
+#
+# Verify this yourself once you have live output: run
+#   winlogbeat.exe -e -c winlogbeat.yml
+# in console mode and confirm `raw` in the printed JSON actually contains
+# a nested JSON string with "event":{"code":...} inside it.
+
+winlogbeat.event_logs:
+  - name: Security
+    ignore_older: 72h
+  - name: System
+  - name: Application
+  - name: Microsoft-Windows-Sysmon/Operational
+    condition:
+      contains:
+        winlog.channel: "Microsoft-Windows-Sysmon/Operational"
+
+processors:
+  - script:
+      lang: javascript
+      id: kksiem_serialize_raw
+      source: >
+        function process(event) {
+            var doc = {
+                message: event.Get("message"),
+                event: event.Get("event"),
+                winlog: event.Get("winlog"),
+                "@timestamp": event.Get("@timestamp")
+            };
+            event.Put("raw", JSON.stringify(doc));
+            return event;
+        }
+
+fields:
+  host: "<THIS_HOST_NAME>"
+  ip: "<THIS_HOST_IP>"
+  segment: "OPT1"                 # OPT1 for clients, OPT2 for Windows Server
+  source_type: "windows_client"   # windows_client | windows_server
+  log_type: "security_eventlog"
+  collector: "winlogbeat"
+fields_under_root: true
+
+output.kafka:
+  hosts: ["${KAFKA_BROKERS}"]
+  topic: "raw.windows"
+  codec.json:
+    pretty: false
+  required_acks: 1
+  compression: gzip
+
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: C:\ProgramData\winlogbeat\logs
+  name: winlogbeat.log
+  keepfiles: 7

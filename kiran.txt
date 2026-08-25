@@ -1,3 +1,0 @@
-Name: kiran kurbet
-Team: Team 1
-Git setup completed successfully.
